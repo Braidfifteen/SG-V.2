@@ -1,5 +1,6 @@
 import os
 import pygame as pg
+os.chdir('C:/Python Projects/sgv2')
 
 SCREEN_X = 1920
 SCREEN_Y = 1080
@@ -48,7 +49,8 @@ SLATEGREY = (112, 128, 144)
 os.environ['SDL_VIDEO_CENTERED'] = '1'
 pg.init()
 pg.display.set_caption(CAPTION)
-pg.display.set_mode((SCREEN_X, SCREEN_Y))
+WINDOW = pg.display.set_mode((SCREEN_X, SCREEN_Y))
+
 
 
 

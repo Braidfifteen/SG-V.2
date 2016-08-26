@@ -1,16 +1,26 @@
 import sys
 import pygame as pg
 import prepare
+import sprites
 
 
 class App():
     """Main class that runs the program."""
     def __init__(self):
-        self.screen = pg.display.get_surface()
+        self.screen = pg.Surface(prepare.WINDOW.get_size())
+        self.screen.fill(prepare.WHITE)
+        prepare.WINDOW.blit(self.screen, [0,0])
         self.screen_rect = self.screen.get_rect()
         self.app_running = True
         self.clock = pg.time.Clock()
-        self.player = None
+        self.all_sprites = pg.sprite.RenderUpdates()
+        self.player = sprites.Player(50, 50, prepare.BLUE, 20, 20)
+        self.player.add(self.all_sprites)
+        pg.display.update()
+
+
+        
+        
         
     def event_loop(self):
         """
@@ -30,12 +40,14 @@ class App():
         
     def update(self):
         """Update all sprites."""
-        pass
+        self.all_sprites.clear(prepare.WINDOW, self.screen)
+        self.all_sprites.update()
         
     def render(self):
         """Clear screen and render all sprites to screen."""
-        dirty = None
-        pg.display.update()
+        
+        dirty = self.all_sprites.draw(prepare.WINDOW)
+        pg.display.update(dirty)
         
     def main_loop(self):
         """

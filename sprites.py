@@ -3,9 +3,9 @@ import prepare
 
 class Sprite(pg.sprite.Sprite):
     """Basic sprite class for all sprites."""
-    def __init__(self, x, y, color, width, height, *groups):
-        super().__init__(x, y, color, width, height, *groups)
-        self.image = pygame.Surface([width, height])
+    def __init__(self, x, y, color, width, height):
+        super().__init__()
+        self.image = pg.Surface([width, height])
         self.image.fill(color)
         self.rect = self.image.get_rect()
         self.rect.x = x
@@ -15,7 +15,7 @@ class Sprite(pg.sprite.Sprite):
 class Player(Sprite):
     """Class that creates the sprite the user will control."""
     def __init__(self, x, y, color, width, height, *groups):
-        super().__init__(x, y, color, width, height, *groups)
+        super().__init__(x, y, color, width, height)
         self.moveX = 0
         self.moveY = 0
         self.health = 100
@@ -40,29 +40,45 @@ class Player(Sprite):
     def move_down(self):
         self.moveY = self.speed
         
+    def stopY(self):
+        self.moveY = 0
+        
+    def stopX(self):
+        self.moveX = 0
+        
     def get_event(self, event):
         """Handles all events that pertains to playable character."""
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_a:
-                player.move_left()
-            if event.key == pygame.K_d:
-                player.move_right()
-            if event.key == pygame.K_w:
-                player.move_up()
-            if event.key == pygame.K_s:
-                player.move_down()
-        if event.type == pygame.KEYUP:
-            if event.key == pygame.K_a and player.moveX < 0:
-                player.stopX()
-            if event.key == pygame.K_d and player.moveX > 0:
-                player.stopX()
-            if event.key == pygame.K_w and player.moveY < 0:
-                player.stopY()
-            if event.key == pygame.K_s and player.moveY > 0:
-                player.stopY()
+        if event.type == pg.KEYDOWN:
+            if event.key == pg.K_a:
+                self.move_left()
+            if event.key == pg.K_d:
+                self.move_right()
+            if event.key == pg.K_w:
+                self.move_up()
+            if event.key == pg.K_s:
+                self.move_down()
+        if event.type == pg.KEYUP:
+            if event.key == pg.K_a and self.moveX < 0:
+                self.stopX()
+            if event.key == pg.K_d and self.moveX > 0:
+                self.stopX()
+            if event.key == pg.K_w and self.moveY < 0:
+                self.stopY()
+            if event.key == pg.K_s and self.moveY > 0:
+                self.stopY()
+        if event.type == pg.MOUSEBUTTONDOWN and event.button == 1:
+                self.is_shooting = True
+        elif event.type == pg.MOUSEBUTTONUP and event.button == 1:
+            self.is_shooting = False
             
-        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                player.is_shooting = True
-            elif event.type == pygame.MOUSEBUTTONUP and event.button == 1:
-                player.is_shooting = False
+    def update(self):
+        """Update image and position of sprite."""
+        self.rect.x += self.moveX
+        
+        self.rect.y += self.moveY
+        
+
+        
+        
+            
         
