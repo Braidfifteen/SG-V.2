@@ -15,8 +15,6 @@ class App():
         self.clock = pg.time.Clock()
         pg.display.update()
 
-
-        
     def new(self):
         self.all_sprites = pg.sprite.RenderUpdates()
         self.wall_list = pg.sprite.Group()
@@ -58,6 +56,8 @@ class App():
         The main game loop.
         Process events; update; render.
         """
+        
+        self.show_start_screen()
         while self.app_running:
             self.event_loop()
             self.update()

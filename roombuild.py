@@ -2,8 +2,8 @@ import pygame as pg
 import prepare as p
 
 class Wall(pg.sprite.Sprite):
-    def __init__(self, game, x, y, widht, height, color):
-        self.groups = game.all_sprites, game.wall_list
+    def __init__(self, room, game, x, y, width, height, color):
+        self.groups = game.all_sprites, room.wall_list
         super().__init__(self.groups)
         self.image = pg.Surface([width, height])
         self.image.fill(color)
