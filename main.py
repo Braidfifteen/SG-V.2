@@ -1,7 +1,7 @@
 import sys
 import pygame as pg
 import prepare
-import sprites
+import gamesprites
 
 
 class App():
@@ -13,14 +13,15 @@ class App():
         self.screen_rect = self.screen.get_rect()
         self.app_running = True
         self.clock = pg.time.Clock()
-        self.all_sprites = pg.sprite.RenderUpdates()
-        self.player = sprites.Player(50, 50, prepare.BLUE, 20, 20)
-        self.player.add(self.all_sprites)
         pg.display.update()
 
 
         
-        
+    def new(self):
+        self.all_sprites = pg.sprite.RenderUpdates()
+        self.wall_list = pg.sprite.Group()
+        self.player = gamesprites.Player(self, 50, 50, prepare.BLUE, 20, 20)
+        self.main_loop()
         
     def event_loop(self):
         """
@@ -48,6 +49,9 @@ class App():
         
         dirty = self.all_sprites.draw(prepare.WINDOW)
         pg.display.update(dirty)
+    
+    def show_start_screen(self):
+        pass
         
     def main_loop(self):
         """
@@ -64,7 +68,7 @@ class App():
                 
 def main():
     """Create an App and start the program."""
-    App().main_loop()
+    App().new()
     pg.quit()
     sys.exit()
     

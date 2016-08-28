@@ -1,21 +1,16 @@
 import pygame as pg
 import prepare
 
-class Sprite(pg.sprite.Sprite):
-    """Basic sprite class for all sprites."""
-    def __init__(self, x, y, color, width, height):
-        super().__init__()
+class Player(pg.sprite.Sprite):
+    """Class that creates the sprite the user will control."""
+    def __init__(self, game, x, y, color, width, height):
+        self.groups = game.all_sprites
+        super().__init__(self.groups)
         self.image = pg.Surface([width, height])
         self.image.fill(color)
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
-
-
-class Player(Sprite):
-    """Class that creates the sprite the user will control."""
-    def __init__(self, x, y, color, width, height, *groups):
-        super().__init__(x, y, color, width, height)
         self.moveX = 0
         self.moveY = 0
         self.health = 100
