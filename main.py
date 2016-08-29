@@ -1,10 +1,10 @@
 import sys
-import app as a
+import game
 import pygame as pg
 
 def main():
     """Create an App and start the program."""
-    a.App().new()
+    game.App().new()
     pg.quit()
     sys.exit()
      
