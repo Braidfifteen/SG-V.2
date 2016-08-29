@@ -23,7 +23,6 @@ class App():
         self.current_room_no = 0
         self.current_room = self.room_list[self.current_room_no]
         self.player.room = self.current_room
-        print(self.player.room.wall_list)
         self.main_loop()
         
     def event_loop(self):
