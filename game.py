@@ -1,7 +1,8 @@
 import sys
 import pygame as pg
 import prepare
-import gamesprites
+import player
+import rooms
 
 
 class App():
@@ -17,8 +18,7 @@ class App():
 
     def new(self):
         self.all_sprites = pg.sprite.RenderUpdates()
-        self.wall_list = pg.sprite.Group()
-        self.player = gamesprites.Player(self, 50, 50, prepare.BLUE, 20, 20)
+        self.player = player.Player(self, 50, 50, prepare.BLUE, 20, 20)
         self.main_loop()
         
     def event_loop(self):
@@ -58,6 +58,10 @@ class App():
         """
         
         self.show_start_screen()
+        self.room_list = [rooms.create_room_list(self, self.player)]
+        self.current_room_no = 0
+        self.current_room = self.room_list[self.current_room_no]
+        self.player.room = self.current_room
         while self.app_running:
             self.event_loop()
             self.update()

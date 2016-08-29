@@ -22,7 +22,8 @@ class Player(pg.sprite.Sprite):
         self.shot_timer = 0
         self.shot_cooldown = 100
         self.is_shooting = False
-        
+        #self.logic = PlayerLogic(self, self.room)
+
     def move_right(self):
         self.moveX = self.speed
         
@@ -69,10 +70,30 @@ class Player(pg.sprite.Sprite):
     def update(self):
         """Update image and position of sprite."""
         self.rect.x += self.moveX
+        #self.logic.wall_hit_logic(self.moveX, "x")
         
         self.rect.y += self.moveY
         
-
+class PlayerLogic():
+    def __init__(self, player, room):
+        self.player = player
+        self.room = room
+        
+    def wall_hit_logic(self, move, direction):
+        if direction == "x":
+            wall_hit_list = pg.sprite.spritecollide(self.player, self.room.wall_list, False)
+            for wall in wall_hit_list:
+                if move > 0:
+                    self.player.rect.right = wall.rect.left
+                else:
+                    self.player.rect.left = wall.rect.right
+        elif direction == "y":
+            wall_hit_list = pg.sprite.spritecollide(self.player, self.room.wall_list, False)
+            for wall in wall_hit_list:
+                if move > 0:
+                    self.player.rect.bottom = wall.rect.top
+                else:
+                    self.player.rect.top = wall.rect.bottom
         
         
             
