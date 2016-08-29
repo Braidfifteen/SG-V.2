@@ -133,7 +133,7 @@ class RoomBorders():
                         # Bottom
                        [0, 1050, p.SCREEN_X, 30, color],
                         # Left
-                       [0, 0, 30, p.SCREEN_Y, color]
+                       [0, 0, 30, SCREEN_Y, color]
                       ]
         return border_list
         
