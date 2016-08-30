@@ -1,5 +1,5 @@
 import pygame as pg
-import prepare
+import prepare as p
 
 class Player(pg.sprite.Sprite):
     """Class that creates the sprite the user will control."""
@@ -24,6 +24,7 @@ class Player(pg.sprite.Sprite):
         self.shot_cooldown = 100
         self.is_shooting = False
         self.logic = PlayerLogic(self)
+        self.room_change = RoomChange(self, game)
 
     def move_right(self):
         self.moveX = self.speed
@@ -72,9 +73,11 @@ class Player(pg.sprite.Sprite):
         """Update image and position of sprite."""
         self.rect.x += self.moveX
         self.logic.wall_hit_logic(self.moveX, "x", self.room.wall_list)
+        self.room_change.change_room()
         
         self.rect.y += self.moveY
         self.logic.wall_hit_logic(self.moveY, "y", self.room.wall_list)
+        self.room_change.change_room()
         
 class PlayerLogic():
     def __init__(self, player, items=None):
@@ -96,7 +99,110 @@ class PlayerLogic():
                     self.player.rect.bottom = wall.rect.top
                 else:
                     self.player.rect.top = wall.rect.bottom
+                    
+class RoomChange():
+    def __init__(self, player, game):
+        self.player = player
+        self.game = game
         
+    def change_room(self):
+        if self.player.rect.x >= p.SCREEN_X:
+            self.game.current_room_no += 1
+            self.game.current_room = self.game.room_list[self.game.current_room_no]
+            self.player.rect.x = 30
+            self.player.room = self.game.current_room
+        elif self.player.rect.x <= 0:
+            self.game.current_room_no -= 1
+            self.game.current_room = self.game.room_list[self.game.current_room_no]
+            self.player.rect.x = p.SCREEN_X - 30
+            self.player.room = self.game.current_room
+        elif self.player.rect.y <= -15:
+            self.game.current_room_no += 5
+            self.game.current_room = self.game.room_list[self.game.current_room_no]
+            self.player.rect.y = p.SCREEN_Y
+            self.player.room = self.game.current_room
+        elif self.player.rect.y >= p.SCREEN_Y:
+            self.game.current_room_no -= 5
+            self.game.urrent_room = self.game.room_list[self.game.current_room_no]
+            self.player.rect.y = 15
+            self.player.room = self.game.current_room
+    """
+    def change_room(self, current_no):
+        if self.current_room_no == 0:
+            if self.player.rect.x >= p.SCREEN_W:
+                self.current_room_no = 1
+                self.current_room = self.room_list[self.current_room_no]
+                self.player.rect.x = 30
+                self.player.room = self.current_room
+            elif player.rect.y <= -30:
+                self.current_room_no = 5
+                self.current_room = self.room_list[self.current_room_no]
+                self.player.rect.y = SCREEN_H + 30
+                self.player.room = self.current_room
+                
+        elif self.current_room_no == 1:
+            if player.rect.x <= -15:
+                self.current_room_no = 0
+                self.current_room = self.room_list[self.current_room_no]
+                self.player.rect.x = SCREEN_W
+                self.player.room = self.current_room
+            elif player.rect.x >= SCREEN_W:
+                self.current_room_no = 2
+                self.current_room = self.room_list[self.current_room_no]
+                self.player.rect.x = 30
+                self.player.room = self.current_room
+            elif player.rect.y <= -30:
+                self.current_room_no = 6
+                self.current_room = self.room_list[self.current_room_no]
+                self.player.rect.y = SCREEN_H + 30
+                self.player.room = self.current_room
+                
+        elif self.current_room_no == 2:
+            if player.rect.x <= -15:
+                self.current_room_no = 1
+                self.current_room = self.room_list[self.current_room_no]
+                self.player.rect.x = SCREEN_W
+                self.player.room = self.current_room
+            elif player.rect.x >= SCREEN_W:
+                self.current_room_no = 3
+                self.current_room = self.room_list[self.current_room_no]
+                self.player.rect.x = 30
+                self.player.room = self.current_room
+            elif self.player.rect.y <= -30:
+                self.current_room_no = 7
+                self.current_room = self.room_list[self.current_room_no]
+                self.player.rect.y = SCREEN_H + 30
+                self.player.room = self.current_room
+                
+        elif self.current_room_no == 3:
+            if player.rect.x <= -15:
+                self.current_room_no = 2
+                self.current_room = self.room_list[self.current_room_no]
+                self.player.rect.x = SCREEN_W
+                self.player.room = self.current_room
+            elif player.rect.x >= SCREEN_W:
+                self.current_room_no = 4
+                self.current_room = self.room_list[self.current_room_no]
+                self.player.rect.x = 30
+                self.player.room = self.current_room
+            elif self.player.rect.y <= -30:
+                self.current_room_no = 8
+                self.current_room = self.room_list[self.current_room_no]
+                self.player.rect.y = SCREEN_H + 30
+                self.player.room = self.current_room
+                
+        elif self.current_room_no == 4:
+            if player.rect.x <= -15:
+                self.current_room_no = 3
+                self.current_room = self.room_list[self.current_room_no]
+                self.player.rect.x = SCREEN_W
+                self.plyaer.room = self.current_room
+            elif player.rect.y <= -30:
+                self.current_room_no = 9
+                self.current_room = self.room_list[self.current_room_no]
+                self.player.rect.y = SCREEN_H + 30
+                self.player.room = self.current_room
+                """
         
             
         

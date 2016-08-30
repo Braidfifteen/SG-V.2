@@ -66,23 +66,15 @@ class CreateRooms():
         return grid_list
     
     def make_rooms(self):
-
         room_list = self.floor_grid(self.room_no_list)
-        print("rooms.py - 70. room_list.")
-        print(room_list)
         for i in range(len(room_list)):
-            print(i)
             if room_list[i] == 1:
                 borders = self.make_borders(i, room_list)
-                print("rooms.py - 74 borders.")
-                print(borders)
                 room_list[i] = Room(self.game, self.player, borders)
-
         return room_list
 
             
     def make_borders(self, i, floor_grid):
-        print("makeborders")
         if i == 19:
             if (floor_grid[i-1] != 1 and floor_grid[i-5] == 1):
                 borders = rb.RoomBorders()
@@ -102,8 +94,6 @@ class CreateRooms():
                 return borders.down_door(p.BLUE)
             
         elif i == 15 or i == 16 or i == 17 or i == 18:
-            print(i, floor_grid[i+1], floor_grid[i-1], floor_grid[i-5])
-
             if (floor_grid[i+1] == 1 and (floor_grid[i-1] != 1 or floor_grid[i-1] != 0) and
                     floor_grid[i-5] != 0):
                 borders = rb.RoomBorders()
@@ -135,8 +125,6 @@ class CreateRooms():
                 return borders.down_door(p.BLUE)
              
         else:
-            print(i, floor_grid[i+1], floor_grid[i-1], floor_grid[i+5], floor_grid[i-5])
-
             if (floor_grid[i+1] != 0 and floor_grid[i-1] != 0 and floor_grid[i+5] != 0 and
                     floor_grid[i-5] != 0):
                 borders = rb.RoomBorders()

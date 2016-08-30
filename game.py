@@ -18,17 +18,12 @@ class App():
 
     def new(self):
         self.all_sprites = pg.sprite.OrderedUpdates()
+        
         self.player = player.Player(self, 50, 50, prepare.BLUE, 20, 20)
         self.room = rooms.CreateRooms(self, self.player)
         self.room_list = self.room.make_rooms()
-        print("game.py - 24. room_list. ")
-        print(self.room_list)
         self.current_room_no = self.room.room_no_list[0]
-        print("game.py - 26. current_room_no. ")
-        print(self.current_room_no)
         self.current_room = self.room_list[self.current_room_no]
-        print("game.py - 28. current_room. ")
-        print(self.current_room)
         self.player.room = self.current_room
         self.main_loop()
         
@@ -50,7 +45,10 @@ class App():
         
     def update(self):
         """Update all sprites."""
+        print(self.current_room_no)
+        
         self.all_sprites.clear(prepare.WINDOW, self.screen)
+        self.all_sprites.add(self.current_room.wall_list)
         self.all_sprites.update()
         
     def render(self):
@@ -58,6 +56,7 @@ class App():
         
         dirty = self.all_sprites.draw(prepare.WINDOW)
         pg.display.update(dirty)
+        self.player.room.wall_list.draw(self.screen)
     
     def show_start_screen(self):
         pass
