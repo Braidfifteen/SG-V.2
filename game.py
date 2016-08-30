@@ -17,11 +17,18 @@ class App():
         pg.display.update()
 
     def new(self):
-        self.all_sprites = pg.sprite.RenderUpdates()
+        self.all_sprites = pg.sprite.OrderedUpdates()
         self.player = player.Player(self, 50, 50, prepare.BLUE, 20, 20)
-        self.room_list = rooms.create_room_list(self, self.player)
-        self.current_room_no = 0
+        self.room = rooms.CreateRooms(self, self.player)
+        self.room_list = self.room.make_rooms()
+        print("game.py - 24. room_list. ")
+        print(self.room_list)
+        self.current_room_no = self.room.room_no_list[0]
+        print("game.py - 26. current_room_no. ")
+        print(self.current_room_no)
         self.current_room = self.room_list[self.current_room_no]
+        print("game.py - 28. current_room. ")
+        print(self.current_room)
         self.player.room = self.current_room
         self.main_loop()
         
