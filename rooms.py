@@ -15,11 +15,13 @@ class Room():
         self.borders = borders
         self.doors = rb.RoomDoors()
         self.border_list(self.borders)
+
         
     def border_list(self, borders):
         for i in borders:
             border = rb.Wall(self, self.game, i[0], i[1], i[2], i[3], i[4])
             
+
         
         
         
@@ -169,7 +171,7 @@ class CreateRooms():
             elif i+5 not in rN and i-5 in rN and i+1 in rN and i-1 in rN:
                 return borders.left_down_right_door(p.BLUE)
                 
-            elif i+5 in rN and i+1 in rN and i-5 in rN and i-1 not in rn:
+            elif i+5 in rN and i+1 in rN and i-5 in rN and i-1 not in rN:
                 return borders.right_up_down_door(p.BLUE)
                 
             elif i+5 in rN and i+1 in rN and i-1 in rN and i-5 not in rN:

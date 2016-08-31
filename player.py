@@ -105,9 +105,9 @@ class RoomChange():
         self.player = player
         self.game = game
         
-    def change_room(self, current_no):
-        if self.player.current_room_no == 0:
-            if self.player.rect.x >= p.SCREEN_W:
+    def change_room(self):
+        if self.game.current_room_no == 0:
+            if self.player.rect.x >= p.SCREEN_X:
                 self.game.current_room_no = 1
                 self.game.current_room = self.game.room_list[self.game.current_room_no]
                 self.player.rect.x = 30
@@ -115,329 +115,340 @@ class RoomChange():
             elif self.player.rect.y <= -30:
                 self.game.current_room_no = 5
                 self.game.current_room = self.game.room_list[self.game.current_room_no]
-                self.player.rect.y = p.SCREEN_H + 30
+                self.player.rect.y = p.SCREEN_Y - 30
                 self.player.room = self.game.current_room
                 
-        elif self.player.current_room_no == 1:
+        elif self.game.current_room_no == 1:
             if self.player.rect.x <= -15:
                 self.game.current_room_no = 0
                 self.game.current_room = self.game.room_list[self.game.current_room_no]
-                self.player.rect.x = p.SCREEN_W
+                self.player.rect.x = p.SCREEN_X
                 self.player.room = self.game.current_room
-            elif self.player.rect.x >= p.SCREEN_W:
+            elif self.player.rect.x >= p.SCREEN_X:
                 self.game.current_room_no = 2
                 self.game.current_room = self.game.room_list[self.game.current_room_no]
                 self.player.rect.x = 30
                 self.player.room = self.game.current_room
-            elif player.rect.y <= -30:
+            elif self.player.rect.y <= -30:
                 self.game.current_room_no = 6
                 self.game.current_room = self.game.room_list[self.game.current_room_no]
-                self.player.rect.y = SCREEN_H + 30
+                self.player.rect.y = p.SCREEN_Y - 30
                 self.player.room = self.game.current_room
                 
-        elif self.player.current_room_no == 2:
+        elif self.game.current_room_no == 2:
             if self.player.rect.x <= -15:
-                self.game.current_room_no = 0
+                self.game.current_room_no = 1
                 self.game.current_room = self.game.room_list[self.game.current_room_no]
-                self.player.rect.x = p.SCREEN_W
+                self.player.rect.x = p.SCREEN_X
                 self.player.room = self.game.current_room
-            elif self.player.rect.x >= p.SCREEN_W:
-                self.game.current_room_no = 2
+            elif self.player.rect.x >= p.SCREEN_X:
+                self.game.current_room_no = 3
                 self.game.current_room = self.game.room_list[self.game.current_room_no]
                 self.player.rect.x = 30
                 self.player.room = self.game.current_room
-            elif player.rect.y <= -30:
-                self.game.current_room_no = 6
+            elif self.player.rect.y <= -30:
+                self.game.current_room_no = 7
                 self.game.current_room = self.game.room_list[self.game.current_room_no]
-                self.player.rect.y = SCREEN_H + 30
+                self.player.rect.y = p.SCREEN_Y - 30
                 self.player.room = self.game.current_room
                 
-        elif self.player.current_room_no == 3:
+        elif self.game.current_room_no == 3:
             if self.player.rect.x <= -15:
-                self.game.current_room_no = 0
-                self.game.current_room = self.game.room_list[self.game.current_room_no]
-                self.player.rect.x = p.SCREEN_W
-                self.player.room = self.game.current_room
-            elif self.player.rect.x >= p.SCREEN_W:
                 self.game.current_room_no = 2
+                self.game.current_room = self.game.room_list[self.game.current_room_no]
+                self.player.rect.x = p.SCREEN_X
+                self.player.room = self.game.current_room
+            elif self.player.rect.x >= p.SCREEN_X:
+                self.game.current_room_no = 4
                 self.game.current_room = self.game.room_list[self.game.current_room_no]
                 self.player.rect.x = 30
                 self.player.room = self.game.current_room
-            elif player.rect.y <= -30:
-                self.game.current_room_no = 6
+            elif self.player.rect.y <= -30:
+                self.game.current_room_no = 8
                 self.game.current_room = self.game.room_list[self.game.current_room_no]
-                self.player.rect.y = SCREEN_H + 30
+                self.player.rect.y = p.SCREEN_Y - 30
                 self.player.room = self.game.current_room
                 
-        elif self.player.current_room_no == 4:
+        elif self.game.current_room_no == 4:
             if self.player.rect.x <= -15:
-                self.game.current_room_no = 0
+                self.game.current_room_no = 3
                 self.game.current_room = self.game.room_list[self.game.current_room_no]
-                self.player.rect.x = p.SCREEN_W
+                self.player.rect.x = p.SCREEN_X
                 self.player.room = self.game.current_room
-            elif self.player.rect.x >= p.SCREEN_W:
-                self.game.current_room_no = 2
+            elif self.player.rect.y <= -30:
+                self.game.current_room_no = 9
+                self.game.current_room = self.game.room_list[self.game.current_room_no]
+                self.player.rect.y = p.SCREEN_Y - 30
+                self.player.room = self.game.current_room
+                
+        elif self.game.current_room_no == 5:
+            if self.player.rect.x >= p.SCREEN_X:
+                self.game.current_room_no = 6
                 self.game.current_room = self.game.room_list[self.game.current_room_no]
                 self.player.rect.x = 30
                 self.player.room = self.game.current_room
-            elif player.rect.y <= -30:
-                self.game.current_room_no = 6
+            elif self.player.rect.y <= -30:
+                self.game.current_room_no = 10
                 self.game.current_room = self.game.room_list[self.game.current_room_no]
-                self.player.rect.y = SCREEN_H + 30
+                self.player.rect.y = p.SCREEN_Y - 30
                 self.player.room = self.game.current_room
                 
-        elif self.player.current_room_no == 5:
+        elif self.game.current_room_no == 6:
             if self.player.rect.x <= -15:
-                self.game.current_room_no = 0
+                self.game.current_room_no = 5
                 self.game.current_room = self.game.room_list[self.game.current_room_no]
-                self.player.rect.x = p.SCREEN_W
+                self.player.rect.x = p.SCREEN_X
                 self.player.room = self.game.current_room
-            elif self.player.rect.x >= p.SCREEN_W:
-                self.game.current_room_no = 2
+            elif self.player.rect.x >= p.SCREEN_X:
+                self.game.current_room_no = 7
                 self.game.current_room = self.game.room_list[self.game.current_room_no]
                 self.player.rect.x = 30
                 self.player.room = self.game.current_room
-            elif player.rect.y <= -30:
-                self.game.current_room_no = 6
+            elif self.player.rect.y <= -30:
+                self.game.current_room_no = 11
                 self.game.current_room = self.game.room_list[self.game.current_room_no]
-                self.player.rect.y = SCREEN_H + 30
+                self.player.rect.y = p.SCREEN_Y - 30
+                self.player.room = self.game.current_room
+            elif self.player.rect.y >= p.SCREEN_Y:
+                self.game.current_room_no = 1
+                self.game.current_room = self.game.room_list[self.game.current_room_no]
+                self.player.rect.y = 30
                 self.player.room = self.game.current_room
                 
-        elif self.player.current_room_no == 6:
+                
+        elif self.game.current_room_no == 7:
             if self.player.rect.x <= -15:
-                self.game.current_room_no = 0
+                self.game.current_room_no = 6
                 self.game.current_room = self.game.room_list[self.game.current_room_no]
-                self.player.rect.x = p.SCREEN_W
+                self.player.rect.x = p.SCREEN_X
                 self.player.room = self.game.current_room
-            elif self.player.rect.x >= p.SCREEN_W:
-                self.game.current_room_no = 2
+            elif self.player.rect.x >= p.SCREEN_X:
+                self.game.current_room_no = 8
                 self.game.current_room = self.game.room_list[self.game.current_room_no]
                 self.player.rect.x = 30
                 self.player.room = self.game.current_room
-            elif player.rect.y <= -30:
-                self.game.current_room_no = 6
+            elif self.player.rect.y <= -30:
+                self.game.current_room_no = 12
                 self.game.current_room = self.game.room_list[self.game.current_room_no]
-                self.player.rect.y = SCREEN_H + 30
+                self.player.rect.y = p.SCREEN_Y - 30
+                self.player.room = self.game.current_room
+            elif self.player.rect.y >= p.SCREEN_Y:
+                self.game.current_room_no = 2
+                self.game.current_room = self.game.room_list[self.game.current_room_no]
+                self.player.rect.y = 30
                 self.player.room = self.game.current_room
                 
-        elif self.player.current_room_no == 7:
+        elif self.game.current_room_no == 8:
             if self.player.rect.x <= -15:
-                self.game.current_room_no = 0
+                self.game.current_room_no = 7
                 self.game.current_room = self.game.room_list[self.game.current_room_no]
-                self.player.rect.x = p.SCREEN_W
+                self.player.rect.x = p.SCREEN_X
                 self.player.room = self.game.current_room
-            elif self.player.rect.x >= p.SCREEN_W:
-                self.game.current_room_no = 2
+            elif self.player.rect.x >= p.SCREEN_X:
+                self.game.current_room_no = 9
                 self.game.current_room = self.game.room_list[self.game.current_room_no]
                 self.player.rect.x = 30
                 self.player.room = self.game.current_room
-            elif player.rect.y <= -30:
-                self.game.current_room_no = 6
+            elif self.player.rect.y <= -30:
+                self.game.current_room_no = 13
                 self.game.current_room = self.game.room_list[self.game.current_room_no]
-                self.player.rect.y = SCREEN_H + 30
+                self.player.rect.y = p.SCREEN_Y - 30
+                self.player.room = self.game.current_room
+            elif self.player.rect.y >= p.SCREEN_Y:
+                self.game.current_room_no = 3
+                self.game.current_room = self.game.room_list[self.game.current_room_no]
+                self.player.rect.y = 30
                 self.player.room = self.game.current_room
                 
-        elif self.player.current_room_no == 8:
+        elif self.game.current_room_no == 9:
             if self.player.rect.x <= -15:
-                self.game.current_room_no = 0
+                self.game.current_room_no = 8
                 self.game.current_room = self.game.room_list[self.game.current_room_no]
-                self.player.rect.x = p.SCREEN_W
+                self.player.rect.x = p.SCREEN_X
                 self.player.room = self.game.current_room
-            elif self.player.rect.x >= p.SCREEN_W:
-                self.game.current_room_no = 2
+            elif self.player.rect.y <= -30:
+                self.game.current_room_no = 14
+                self.game.current_room = self.game.room_list[self.game.current_room_no]
+                self.player.rect.y = p.SCREEN_Y - 30
+                self.player.room = self.game.current_room
+            elif self.player.rect.y >= p.SCREEN_Y:
+                self.game.current_room_no = 4
+                self.game.current_room = self.game.room_list[self.game.current_room_no]
+                self.player.rect.y = 30
+                self.player.room = self.game.current_room
+                
+        elif self.game.current_room_no == 10:
+            if self.player.rect.x >= p.SCREEN_X:
+                self.game.current_room_no = 11
                 self.game.current_room = self.game.room_list[self.game.current_room_no]
                 self.player.rect.x = 30
                 self.player.room = self.game.current_room
-            elif player.rect.y <= -30:
-                self.game.current_room_no = 6
+            elif self.player.rect.y <= -30:
+                self.game.current_room_no = 15
                 self.game.current_room = self.game.room_list[self.game.current_room_no]
-                self.player.rect.y = SCREEN_H + 30
+                self.player.rect.y = p.SCREEN_Y - 30
+                self.player.room = self.game.current_room
+            elif self.player.rect.y >= p.SCREEN_Y:
+                self.game.current_room_no = 5
+                self.game.current_room = self.game.room_list[self.game.current_room_no]
+                self.player.rect.y = 30
                 self.player.room = self.game.current_room
                 
-        elif self.player.current_room_no == 9:
+        elif self.game.current_room_no == 11:
             if self.player.rect.x <= -15:
-                self.game.current_room_no = 0
+                self.game.current_room_no = 10
                 self.game.current_room = self.game.room_list[self.game.current_room_no]
-                self.player.rect.x = p.SCREEN_W
+                self.player.rect.x = p.SCREEN_X
                 self.player.room = self.game.current_room
-            elif self.player.rect.x >= p.SCREEN_W:
-                self.game.current_room_no = 2
+            elif self.player.rect.x >= p.SCREEN_X:
+                self.game.current_room_no = 12
                 self.game.current_room = self.game.room_list[self.game.current_room_no]
                 self.player.rect.x = 30
                 self.player.room = self.game.current_room
-            elif player.rect.y <= -30:
+            elif self.player.rect.y <= -30:
+                self.game.current_room_no = 16
+                self.game.current_room = self.game.room_list[self.game.current_room_no]
+                self.player.rect.y = p.SCREEN_Y - 30
+                self.player.room = self.game.current_room
+            elif self.player.rect.y >= p.SCREEN_Y:
                 self.game.current_room_no = 6
                 self.game.current_room = self.game.room_list[self.game.current_room_no]
-                self.player.rect.y = SCREEN_H + 30
+                self.player.rect.y = 30
                 self.player.room = self.game.current_room
                 
-        elif self.player.current_room_no == 10:
+        elif self.game.current_room_no == 12:
             if self.player.rect.x <= -15:
-                self.game.current_room_no = 0
+                self.game.current_room_no = 11
                 self.game.current_room = self.game.room_list[self.game.current_room_no]
-                self.player.rect.x = p.SCREEN_W
+                self.player.rect.x = p.SCREEN_X
                 self.player.room = self.game.current_room
-            elif self.player.rect.x >= p.SCREEN_W:
-                self.game.current_room_no = 2
+            elif self.player.rect.x >= p.SCREEN_X:
+                self.game.current_room_no = 13
                 self.game.current_room = self.game.room_list[self.game.current_room_no]
                 self.player.rect.x = 30
                 self.player.room = self.game.current_room
-            elif player.rect.y <= -30:
-                self.game.current_room_no = 6
+            elif self.player.rect.y <= -30:
+                self.game.current_room_no = 17
                 self.game.current_room = self.game.room_list[self.game.current_room_no]
-                self.player.rect.y = SCREEN_H + 30
+                self.player.rect.y = p.SCREEN_Y - 30
+                self.player.room = self.game.current_room
+            elif self.player.rect.y >= p.SCREEN_Y:
+                self.game.current_room_no = 7
+                self.game.current_room = self.game.room_list[self.game.current_room_no]
+                self.player.rect.y = 30
                 self.player.room = self.game.current_room
                 
-        elif self.player.current_room_no == 11:
+        elif self.game.current_room_no == 13:
             if self.player.rect.x <= -15:
-                self.game.current_room_no = 0
+                self.game.current_room_no = 12
                 self.game.current_room = self.game.room_list[self.game.current_room_no]
-                self.player.rect.x = p.SCREEN_W
+                self.player.rect.x = p.SCREEN_X
                 self.player.room = self.game.current_room
-            elif self.player.rect.x >= p.SCREEN_W:
-                self.game.current_room_no = 2
+            elif self.player.rect.x >= p.SCREEN_X:
+                self.game.current_room_no = 14
                 self.game.current_room = self.game.room_list[self.game.current_room_no]
                 self.player.rect.x = 30
                 self.player.room = self.game.current_room
-            elif player.rect.y <= -30:
-                self.game.current_room_no = 6
+            elif self.player.rect.y <= -30:
+                self.game.current_room_no = 18
                 self.game.current_room = self.game.room_list[self.game.current_room_no]
-                self.player.rect.y = SCREEN_H + 30
+                self.player.rect.y = p.SCREEN_Y - 30
+                self.player.room = self.game.current_room
+            elif self.player.rect.y >= p.SCREEN_Y:
+                self.game.current_room_no = 8
+                self.game.current_room = self.game.room_list[self.game.current_room_no]
+                self.player.rect.y = 30
                 self.player.room = self.game.current_room
                 
-        elif self.player.current_room_no == 12:
+        elif self.game.current_room_no == 14:
             if self.player.rect.x <= -15:
-                self.game.current_room_no = 0
+                self.game.current_room_no = 13
                 self.game.current_room = self.game.room_list[self.game.current_room_no]
-                self.player.rect.x = p.SCREEN_W
+                self.player.rect.x = p.SCREEN_X
                 self.player.room = self.game.current_room
-            elif self.player.rect.x >= p.SCREEN_W:
-                self.game.current_room_no = 2
+            elif self.player.rect.y <= -30:
+                self.game.current_room_no = 19
+                self.game.current_room = self.game.room_list[self.game.current_room_no]
+                self.player.rect.y = p.SCREEN_Y - 30
+                self.player.room = self.game.current_room
+            elif self.player.rect.y >= p.SCREEN_Y:
+                self.game.current_room_no = 9
+                self.game.current_room = self.game.room_list[self.game.current_room_no]
+                self.player.rect.y = 30
+                self.player.room = self.game.current_room
+                
+        elif self.game.current_room_no == 15:
+            if self.player.rect.x >= p.SCREEN_X:
+                self.game.current_room_no = 16
                 self.game.current_room = self.game.room_list[self.game.current_room_no]
                 self.player.rect.x = 30
                 self.player.room = self.game.current_room
-            elif player.rect.y <= -30:
-                self.game.current_room_no = 6
+            elif self.player.rect.y >= p.SCREEN_Y:
+                self.game.current_room_no = 10
                 self.game.current_room = self.game.room_list[self.game.current_room_no]
-                self.player.rect.y = SCREEN_H + 30
+                self.player.rect.y = 30
                 self.player.room = self.game.current_room
                 
-        elif self.player.current_room_no == 13:
+        elif self.game.current_room_no == 16:
             if self.player.rect.x <= -15:
-                self.game.current_room_no = 0
+                self.game.current_room_no = 15
                 self.game.current_room = self.game.room_list[self.game.current_room_no]
-                self.player.rect.x = p.SCREEN_W
+                self.player.rect.x = p.SCREEN_X
                 self.player.room = self.game.current_room
-            elif self.player.rect.x >= p.SCREEN_W:
-                self.game.current_room_no = 2
+            elif self.player.rect.x >= p.SCREEN_X:
+                self.game.current_room_no = 17
                 self.game.current_room = self.game.room_list[self.game.current_room_no]
                 self.player.rect.x = 30
                 self.player.room = self.game.current_room
-            elif player.rect.y <= -30:
-                self.game.current_room_no = 6
+            elif self.player.rect.y >= p.SCREEN_Y:
+                self.game.current_room_no = 11
                 self.game.current_room = self.game.room_list[self.game.current_room_no]
-                self.player.rect.y = SCREEN_H + 30
+                self.player.rect.y = 30
                 self.player.room = self.game.current_room
                 
-        elif self.player.current_room_no == 14:
+        elif self.game.current_room_no == 17:
             if self.player.rect.x <= -15:
-                self.game.current_room_no = 0
+                self.game.current_room_no = 16
                 self.game.current_room = self.game.room_list[self.game.current_room_no]
-                self.player.rect.x = p.SCREEN_W
+                self.player.rect.x = p.SCREEN_X
                 self.player.room = self.game.current_room
-            elif self.player.rect.x >= p.SCREEN_W:
-                self.game.current_room_no = 2
+            elif self.player.rect.x >= p.SCREEN_X:
+                self.game.current_room_no = 18
                 self.game.current_room = self.game.room_list[self.game.current_room_no]
                 self.player.rect.x = 30
                 self.player.room = self.game.current_room
-            elif player.rect.y <= -30:
-                self.game.current_room_no = 6
+            elif self.player.rect.y >= p.SCREEN_Y:
+                self.game.current_room_no = 12
                 self.game.current_room = self.game.room_list[self.game.current_room_no]
-                self.player.rect.y = SCREEN_H + 30
+                self.player.rect.y = 30
                 self.player.room = self.game.current_room
                 
-        elif self.player.current_room_no == 15:
+        elif self.game.current_room_no == 18:
             if self.player.rect.x <= -15:
-                self.game.current_room_no = 0
+                self.game.current_room_no = 17
                 self.game.current_room = self.game.room_list[self.game.current_room_no]
-                self.player.rect.x = p.SCREEN_W
+                self.player.rect.x = p.SCREEN_X
                 self.player.room = self.game.current_room
-            elif self.player.rect.x >= p.SCREEN_W:
-                self.game.current_room_no = 2
+            elif self.player.rect.x >= p.SCREEN_X:
+                self.game.current_room_no = 19
                 self.game.current_room = self.game.room_list[self.game.current_room_no]
                 self.player.rect.x = 30
                 self.player.room = self.game.current_room
-            elif player.rect.y <= -30:
-                self.game.current_room_no = 6
+            elif self.player.rect.y >= p.SCREEN_Y:
+                self.game.current_room_no = 13
                 self.game.current_room = self.game.room_list[self.game.current_room_no]
-                self.player.rect.y = SCREEN_H + 30
+                self.player.rect.y = 30
                 self.player.room = self.game.current_room
                 
-        elif self.player.current_room_no == 16:
+        elif self.game.current_room_no == 19:
             if self.player.rect.x <= -15:
-                self.game.current_room_no = 0
+                self.game.current_room_no = 18
                 self.game.current_room = self.game.room_list[self.game.current_room_no]
-                self.player.rect.x = p.SCREEN_W
+                self.player.rect.x = p.SCREEN_X
                 self.player.room = self.game.current_room
-            elif self.player.rect.x >= p.SCREEN_W:
-                self.game.current_room_no = 2
+            elif self.player.rect.y >= p.SCREEN_Y:
+                self.game.current_room_no = 14
                 self.game.current_room = self.game.room_list[self.game.current_room_no]
-                self.player.rect.x = 30
-                self.player.room = self.game.current_room
-            elif player.rect.y <= -30:
-                self.game.current_room_no = 6
-                self.game.current_room = self.game.room_list[self.game.current_room_no]
-                self.player.rect.y = SCREEN_H + 30
-                self.player.room = self.game.current_room
-                
-        elif self.player.current_room_no == 17:
-            if self.player.rect.x <= -15:
-                self.game.current_room_no = 0
-                self.game.current_room = self.game.room_list[self.game.current_room_no]
-                self.player.rect.x = p.SCREEN_W
-                self.player.room = self.game.current_room
-            elif self.player.rect.x >= p.SCREEN_W:
-                self.game.current_room_no = 2
-                self.game.current_room = self.game.room_list[self.game.current_room_no]
-                self.player.rect.x = 30
-                self.player.room = self.game.current_room
-            elif player.rect.y <= -30:
-                self.game.current_room_no = 6
-                self.game.current_room = self.game.room_list[self.game.current_room_no]
-                self.player.rect.y = SCREEN_H + 30
-                self.player.room = self.game.current_room
-                
-        elif self.player.current_room_no == 18:
-            if self.player.rect.x <= -15:
-                self.game.current_room_no = 0
-                self.game.current_room = self.game.room_list[self.game.current_room_no]
-                self.player.rect.x = p.SCREEN_W
-                self.player.room = self.game.current_room
-            elif self.player.rect.x >= p.SCREEN_W:
-                self.game.current_room_no = 2
-                self.game.current_room = self.game.room_list[self.game.current_room_no]
-                self.player.rect.x = 30
-                self.player.room = self.game.current_room
-            elif player.rect.y <= -30:
-                self.game.current_room_no = 6
-                self.game.current_room = self.game.room_list[self.game.current_room_no]
-                self.player.rect.y = SCREEN_H + 30
-                self.player.room = self.game.current_room
-                
-        elif self.player.current_room_no == 19:
-            if self.player.rect.x <= -15:
-                self.game.current_room_no = 0
-                self.game.current_room = self.game.room_list[self.game.current_room_no]
-                self.player.rect.x = p.SCREEN_W
-                self.player.room = self.game.current_room
-            elif self.player.rect.x >= p.SCREEN_W:
-                self.game.current_room_no = 2
-                self.game.current_room = self.game.room_list[self.game.current_room_no]
-                self.player.rect.x = 30
-                self.player.room = self.game.current_room
-            elif player.rect.y <= -30:
-                self.game.current_room_no = 6
-                self.game.current_room = self.game.room_list[self.game.current_room_no]
-                self.player.rect.y = SCREEN_H + 30
+                self.player.rect.y = 30
                 self.player.room = self.game.current_room
                 
