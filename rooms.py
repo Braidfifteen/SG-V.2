@@ -28,11 +28,11 @@ class CreateRooms():
     def __init__(self, game, player):
         super().__init__()
         self.room_list = None
-        self.room_no_list = self.create_layout()
+        self.room_no_list = self.get_room_no_list()
         self.game = game
         self.player = player
         
-    def create_layout(self):
+    def get_room_no_list(self):
         count = 0
         array = []
         while count <= random.randint(10, 15):
@@ -57,139 +57,208 @@ class CreateRooms():
                     pass
         return array
     
-    def floor_grid(self, room_no_list):
+    def floor_grid(self):
         grid_list = []
         for i in range(20):
-            grid_list.append(0)
-        for i in room_no_list:
-            grid_list[i] = 1
+            grid_list.append(i)
         return grid_list
-    
-    def make_rooms(self):
-        room_list = self.floor_grid(self.room_no_list)
-        for i in range(len(room_list)):
-            if room_list[i] == 1:
-                borders = self.make_borders(i, room_list)
-                room_list[i] = Room(self.game, self.player, borders)
-        return room_list
 
-            
-    def make_borders(self, i, floor_grid):
+    def make_rooms(self):
+        floor_grid = self.floor_grid()
+        room_no_list = self.get_room_no_list()
+        for i in range(len(floor_grid)):
+            if floor_grid[i] in room_no_list:
+                borders = self.make_borders(i, room_no_list)
+                floor_grid[i] = Room(self.game, self.player, borders)
+        return floor_grid
+    
+    def make_borders(self, i, rN):
+        borders = rb.RoomBorders()
         if i == 19:
-            if (floor_grid[i-1] != 1 and floor_grid[i-5] == 1):
-                borders = rb.RoomBorders()
-                return borders.down_door(p.BLUE)
-                
-            elif (floor_grid[i-1] != 1 or floor_grid[i-1] != 0 and
-                    floor_grid[i-5] != 1 or floor_grid[i-5] != 0):
-                borders = rb.RoomBorders()
+            if i-1 in rN and i-5 in rN:
                 return borders.left_down_door(p.BLUE)
                 
-            elif (floor_grid[i-1] != 0 and floor_grid[i-5] != 1):
-                borders = rb.RoomBorders()
+            elif i-1 in rN and i-5 not in rN:
                 return borders.left_door(p.BLUE)
                 
-            elif (floor_grid[i-1] != 1 and floor_grid[i-5] != 0):
-                borders = rb.RoomBorders()
+            elif i-1 not in rN and i-5 in rN:
                 return borders.down_door(p.BLUE)
-            
-        elif i == 15 or i == 16 or i == 17 or i == 18:
-            if (floor_grid[i+1] == 1 and (floor_grid[i-1] != 1 or floor_grid[i-1] != 0) and
-                    floor_grid[i-5] != 0):
-                borders = rb.RoomBorders()
+                
+        elif i == 16 or i == 17 or i == 18:
+            if i-1 in rN and i+1 in rN and i-5 in rN:
+                return borders.left_down_right_door(p.BLUE)
+                
+            elif i-1 not in rN and i+1 in rN and i-5 in rN:
                 return borders.right_down_door(p.BLUE)
                 
-            elif (floor_grid[i+1] != 1 and (floor_grid[i-1] != 1 or floor_grid[i-1] != 0) and
-                    (floor_grid[i-5] != 1 or floor_grid[i-5] != 0)):
-                borders = rb.RoomBorders()
-                return borders.left_down_door(p.BLUE)
-                
-            elif (floor_grid[i+1] != 0 and floor_grid[i-1] != 0 and (floor_grid[i-5] != 1 or
-                    floor_grid[i-5] != 0)):
-                borders = rb.RoomBorders()
+            elif i-1 in rN and i+1 in rN and i-5 not in rN:
                 return borders.left_right_door(p.BLUE)
                 
-            elif (floor_grid[i+1] != 0 and (floor_grid[i-1] != 1 or floor_grid[i-1] != 0) and
-                    (floor_grid[i-5] != 1 or floor_grid[i-5] != 0)):
-                borders = rb.RoomBorders()
+            elif i-1 in rN and i+1 not in rN and i-5 in rN:
+                return borders.left_down_door(p.BLUE)
+                
+            elif i-1 not in rN and i+1 not in rN and i-5 in rN:
+                return borders.down_door(p.BLUE)
+                
+            elif i-1 not in rN and i-5 not in rN and i+1 in rN:
                 return borders.right_door(p.BLUE)
                 
-            elif (floor_grid[i+1] != 1 and floor_grid[i-1] != 0 and (floor_grid[i-5] != 1 or
-                    floor_grid[i-5] != 0)):
-                borders = rb.RoomBorders()
+            elif i-1 in rN and i+1 not in rN and i-5 not in rN:
                 return borders.left_door(p.BLUE)
                 
-            elif (floor_grid[i+1] != 1 and (floor_grid[i-1] != 1 or floor_grid[i-1] != 0) and
-                    floor_grid[i-5] != 0):
-                borders = rb.RoomBorders()
-                return borders.down_door(p.BLUE)
-             
-        else:
-            if (floor_grid[i+1] != 0 and floor_grid[i-1] != 0 and floor_grid[i+5] != 0 and
-                    floor_grid[i-5] != 0):
-                borders = rb.RoomBorders()
-                return borders.all_doors(p.BLUE)
-                
-            elif (floor_grid[i+1] != 0 and (floor_grid[i-1] != 1 or floor_grid[i-1] != 0) and
-                    (floor_grid[i+5] != 1 or floor_grid [i+5] != 0) and floor_grid[i-5] != 0):
-                borders = rb.RoomBorders()
+        elif i == 15:
+            if i+1 in rN and i-5 in rN:
                 return borders.right_down_door(p.BLUE)
                 
-            elif (floor_grid[i+1] != 0 and (floor_grid[i-1] != 1 or floor_grid[i-1] != 0) and
-                    floor_grid[i+5] != 0 and (floor_grid[i-5] != 1 or floor_grid[i-5] != 0)):
-                borders = rb.RoomBorders()
-                return borders.right_up_door(p.BLUE)
+            elif i+1 in rN and i-5 not in rN:
+                return borders.right_door(p.BLUE)
                 
-            elif (floor_grid[i+1] != 1 and floor_grid[i-1] != 0 and floor_grid[i+5] != 0 and
-                    (floor_grid[i-5] != 1 or floor_grid[i-5] != 0)):
-                borders = rb.RoomBorders()
-                return borders.left_up_door(p.BLUE)
+            elif i+1 not in rN and i-5 in rN:
+                return borders.down_door(p.BLUE)
                 
-            elif (floor_grid[i+1] != 1 and floor_grid[i-1] != 0 and
-                    (floor_grid[i+5] != 1 or floor_grid[i+5] != 0) and floor_grid[i-5] != 0):
-                borders = rb.RoomBorders()
+        elif i == 14 or i == 9:
+            if i+5 in rN and i-1 in rN and i-5 in rN:
+                return borders.left_up_down_door(p.BLUE)
+                
+            elif i+5 not in rN and i-1 in rN and i-5 in rN:
                 return borders.left_down_door(p.BLUE)
                 
-            elif (floor_grid[i+1] != 0 and floor_grid[i-1] != 0 and floor_grid[i+5] != 0 and
-                    (floor_grid[i-5] != 1 or floor_grid[i-5] != 0)):
-                borders = rb.RoomBorders()
-                return borders.left_right_up_door(p.BLUE)
-                
-            elif (floor_grid[i+1] != 0 and (floor_grid[i-1] != 1 or floor_grid[i-1] != 0) and
-                    floor_grid[i+5] != 0 and floor_grid[i-5] != 0):
-                borders = rb.RoomBorders()
-                return borders.right_up_down_door(p.BLUE)
-                
-            elif (floor_grid[i+1] != 0 and floor_grid[i-1] != 0 and (floor_grid[i+5] != 1 or
-                    floor_grid[i+5] != 0) and (floor_grid[i-5] != 1 or floor_grid[i-5] != 0)):
-                borders = rb.RoomBorders()
-                return borders.left_right_door(p.BLUE)
-                
-            elif (floor_grid[i+1] != 1 and (floor_grid[i-1] != 1 or floor_grid[i-1] != 0) and
-                    floor_grid[i+5] != 0 and floor_grid[i-5] != 0):
-                borders = rb.RoomBorders()
+            elif i+5 in rN and i-1 not in rN and i-5 in rN:
                 return borders.up_down_door(p.BLUE)
                 
-            elif (floor_grid[i+1] != 0 and (floor_grid[i-1] != 1 or floor_grid[i-1] != 0) and
-                    (floor_grid[i+5] != 1 or floor_grid[i+5] != 0) and (floor_grid[i-5] != 1 or
-                    floor_grid[i-5] != 0)):
-                borders = rb.RoomBorders()
-                return borders.right_door(p.BLUE)
+            elif i+5 in rN and i-1 in rN and i-5 not in rN:
+                return borders.left_up_door(p.BLUE)
                 
-            elif (floor_grid[i+1] != 1 and floor_grid[i-1] != 0 and (floor_grid[i+5] != 1 or
-                    floor_grid[i+5] != 0) and (floor_grid[i-5] != 1 or floor_grid[i-5] != 0)):
-                borders = rb.RoomBorders()
+            elif i+5 not in rN and i-5 not in rN and i-1 in rN:
                 return borders.left_door(p.BLUE)
                 
-            elif (floor_grid[i+1] != 1 and (floor_grid[i-1] != 1 or floor_grid[i-1] != 0) and
-                    floor_grid[i+5] != 0 and (floor_grid[i-5] != 1 or floor_grid[i-5] != 0)):
-                borders = rb.RoomBorders()
+            elif i+5 not in rN and i-1 not in rN and i-5 in rN:
+                return borders.down_door(p.BLUE)
+                
+            elif i+5 in rN and i-1 not in rN and i-5 not in rN:
                 return borders.up_door(p.BLUE)
                 
-            elif (floor_grid[i+1] != 1 and (floor_grid[i-1] != 1 or floor_grid[i-1] != 0) and
-                    (floor_grid[i+5] != 1 or floor_grid[i+5] != 0) and floor_grid[i-5] != 0):
-                borders = rb.RoomBorders()
+        elif i == 13 or i == 12 or i == 11 or i == 8 or i == 7 or i == 6:
+            if i+5 in rN and i+1 in rN and i-5 in rN and i-1 in rN:
+                return borders.all_doors(p.BLUE)
+                
+            elif i+5 in rN and i-5 in rN and i-1 in rN and i+1 not in rN:
+                return borders.left_up_door(p.BLUE)
+                
+            elif i+5 not in rN and i+1 not in rN and i-1 in rN and i-5 in rN:
+                return borders.left_down_door(p.BLUE)
+                
+            elif i+5 not in rN and i+1 not in rN and i-1 not in rN and i-5 in rN:
                 return borders.down_door(p.BLUE)
+                
+            elif i+5 in rN and i-5 in rN and i+1 not in rN and i-1 not in rN:
+                return borders.up_down_door(p.BLUE)
+                
+            elif i+5 in rN and i-5 not in rN and i+1 not in rN and i-1 not in rN:
+                return borders.up_door(p.BLUE)
+                
+            elif i+5 not in rN and i-5 not in rN and i+1 in rN and i-1 in rN:
+                return borders.left_right_door(p.BLUE)
+                
+            elif i+5 not in rN and i-5 not in rN and i+1 not in rN and i-1 in rN:
+                return borders.left_door(p.BLUE)
+                
+            elif i+5 not in rN and i-5 not in rN and i-1 not in rN and i+1 in rN:
+                return borders.right_door(p.BLUE)
+                
+            elif i+5 not in rN and i-5 in rN and i+1 in rN and i-1 in rN:
+                return borders.left_down_right_door(p.BLUE)
+                
+            elif i+5 in rN and i+1 in rN and i-5 in rN and i-1 not in rn:
+                return borders.right_up_down_door(p.BLUE)
+                
+            elif i+5 in rN and i+1 in rN and i-1 in rN and i-5 not in rN:
+                return borders.left_up_right_door(p.BLUE)
+                
+            elif i+5 not in rN and i-1 not in rN and i+1 in rN and i-5 in rN:
+                return borders.right_down_door(p.BLUE)
+                
+            elif i+5 in rN and i+1 in rN and i-5 not in rN and i-1 not in rN:
+                return borders.right_up_door(p.BLUE)
+                
+            elif i+5 in rN and i-1 in rN and i+1 not in rN and i-5 not in rN:
+                return borders.left_up_door(p.BLUE)
+            
+        elif i == 10 or i == 5:
+            if i+5 in rN and i+1 in rN and i-5 in rN:
+                return borders.right_up_down_door(p.BLUE)
+                
+            elif i+5 not in rN and i+1 in rN and i-5 in rN:
+                return borders.left_down_door(p.BLUE)
+                
+            elif i+5 in rN and i+1 not in rN and i-5 in rN:
+                return borders.up_down_door(p.BLUE)
+                
+            elif i+5 in rN and i+1 in rN and i-5 not in rN:
+                return borders.right_up_door(p.BLUE)
+                
+            elif i+5 not in rN and i-5 not in rN and i+1 in rN:
+                return borders.right_door(p.BLUE)
+                
+            elif i+5 not in rN and i+1 not in rN and i-5 in rN:
+                return borders.down_door(p.BLUE)
+                
+            elif i+5 in rN and i+1 not in rN and i-5 not in rN:
+                return borders.up_door(p.BLUE)
+                
+        elif i == 1 or i == 2 or i == 3:
+            if i+5 in rN and i+1 in rN and i-1 in rN:
+                return borders.left_up_right_door(p.BLUE)
+                
+            elif i+5 in rN and i+1 in rN and i-1 not in rN:
+                return borders.right_up_door(p.BLUE)
+                
+            elif i+5 not in rN and i+1 in rN and i-1 in rN:
+                return borders.left_right_door(p.BLUE)
+                
+            elif i+5 in rN and i+1 not in rN and i-1 in rN:
+                return borders.left_up_door(p.BLUE)
+                
+            elif i+5 in rN and i+1 not in rN and i-1 not in rN:
+                return borders.up_door(p.BLUE)
+                
+            elif i+5 not in rN and i-1 not in rN and i+1 in rN:
+                return borders.right_door(p.BLUE)
+                
+            elif i+5 not in rN and i-1 in rN and i+1 not in rN:
+                return borders.left_door(p.BLUE)
+                
+        elif i == 4:
+            if i+5 in rN and i-1 in rN:
+                return borders.left_up_door(p.BLUE)
+                
+            elif i+5 in rN and i-1 not in rN:
+                return borders.up_door(p.BLUE)
+                
+            elif i+5 not in rN and i-1 in rN:
+                return borders.left_door(p.BLUE)
+                
+        elif i == 0:
+            if i+5 in rN and i+1 in rN:
+                return borders.right_up_door(p.BLUE)
+                
+            elif i+5 not in rN and i+1 in rN:
+                return borders.right_door(p.BLUE)
+                
+            elif i+5 in rN and i+1 not in rN:
+                return borders.up_door(p.BLUE)
+                
+            
+                
+                
+                
+                
+                
+        
+                
+            
+            
+
         
 class Room_0(Room):
     def __init__(self, game, player):
