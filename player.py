@@ -221,7 +221,7 @@ class RoomChange():
             elif self.player.rect.y >= p.SCREEN_Y:
                 self.game.current_room_no = 0
                 self.game.current_room = self.game.room_list[self.game.current_room_no]
-                self.rect.y = 30
+                self.player.rect.y = 30
                 self.player.room = self.game.current_room
                 
         elif self.game.current_room_no == 6:
