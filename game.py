@@ -17,8 +17,7 @@ class App():
         pg.display.update()
 
     def new(self):
-
-        self.all_sprites = pg.sprite.OrderedUpdates()    
+        self.all_sprites = pg.sprite.LayeredDirty()
         self.player = player.Player(self, 50, 50, prepare.BLUE, 20, 20)      
         self.room = rooms.CreateRooms(self, self.player)    
         self.room_list = self.room.make_rooms()
@@ -53,14 +52,16 @@ class App():
     def update(self):
         """Update all sprites."""
 
-        self.all_sprites.add(self.player.room.wall_list)        
         self.all_sprites.clear(prepare.WINDOW, self.screen)
+        self.all_sprites.remove(self.current_room.wall_list)
         self.all_sprites.update()
         
     def render(self):
         """Clear screen and render all sprites to screen."""
-   
+        
+        self.all_sprites.add(self.current_room.wall_list)
         dirty = self.all_sprites.draw(prepare.WINDOW)
+
         pg.display.update(dirty)
 
     
@@ -75,6 +76,13 @@ class App():
         
         self.show_start_screen()
         while self.app_running:
+
+            print(self.current_room.wall_list)
+            print(self.room.room_no_list)
+            print(self.current_room)
+            print(self.all_sprites)
+            print(self.current_room_no)
+
             self.event_loop()
             self.update()
             self.render()

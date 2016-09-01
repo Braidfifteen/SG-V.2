@@ -1,7 +1,7 @@
 import pygame as pg
 import prepare as p
 
-class Wall(pg.sprite.Sprite):
+class Wall(pg.sprite.DirtySprite):
     def __init__(self, room, game, x, y, width, height, color):
         self.groups = room.wall_list
         super().__init__(self.groups)
@@ -10,6 +10,7 @@ class Wall(pg.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
+        self.dirty = 1
         
 class RoomDoors():
     def __init__(self):

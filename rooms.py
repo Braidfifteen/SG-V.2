@@ -4,13 +4,14 @@ import roombuild as rb
 import random
 
 class Room():
-    def __init__(self, game, player, borders):
+    def __init__(self, game, player, borders, number):
         self.game = game
         self.player = player
+        self.room_no = number
         self.power_up_list = pg.sprite.Group()
         self.bullet_list = pg.sprite.Group()
         self.enemy_list = pg.sprite.Group()
-        self.wall_list = pg.sprite.Group()
+        self.wall_list = pg.sprite.LayeredDirty()
         self.teleporter_list = pg.sprite.Group()
         self.borders = borders
         self.doors = rb.RoomDoors()
@@ -67,11 +68,11 @@ class CreateRooms():
 
     def make_rooms(self):
         floor_grid = self.floor_grid()
-        room_no_list = self.get_room_no_list()
+        room_no_list = self.room_no_list
         for i in range(len(floor_grid)):
             if floor_grid[i] in room_no_list:
                 borders = self.make_borders(i, room_no_list)
-                floor_grid[i] = Room(self.game, self.player, borders)
+                floor_grid[i] = Room(self.game, self.player, borders, i)
         return floor_grid
     
     def make_borders(self, i, rN):
