@@ -30,7 +30,6 @@ class Room():
 class CreateRooms():
     def __init__(self, game, player):
         super().__init__()
-        self.room_list = None
         self.room_no_list = self.get_room_no_list()
         self.game = game
         self.player = player
@@ -192,7 +191,7 @@ class CreateRooms():
                 return borders.right_up_down_door(p.BLUE)
                 
             elif i+5 not in rN and i+1 in rN and i-5 in rN:
-                return borders.left_down_door(p.BLUE)
+                return borders.right_down_door(p.BLUE)
                 
             elif i+5 in rN and i+1 not in rN and i-5 in rN:
                 return borders.up_down_door(p.BLUE)

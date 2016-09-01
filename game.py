@@ -24,13 +24,6 @@ class App():
         self.current_room_no = self.room.room_no_list[0]
         self.current_room = self.room_list[self.current_room_no]
         self.player.room = self.current_room
-    
-
-
-
-
-      
-
         self.main_loop()
 
     def event_loop(self):
@@ -76,13 +69,6 @@ class App():
         
         self.show_start_screen()
         while self.app_running:
-
-            print(self.current_room.wall_list)
-            print(self.room.room_no_list)
-            print(self.current_room)
-            print(self.all_sprites)
-            print(self.current_room_no)
-
             self.event_loop()
             self.update()
             self.render()

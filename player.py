@@ -52,6 +52,10 @@ class Player(pg.sprite.DirtySprite):
     def get_event(self, event):
         """Handles all events that pertains to playable character."""
         if event.type == pg.KEYDOWN:
+            if event.key == pg.K_RETURN:
+                print(self.game.current_room_no)
+            if event.key == pg.K_BACKSPACE:
+                print(self.game.room.room_no_list)
             if event.key == pg.K_a:
                 self.move_left()
                 self.is_moving_left = True
@@ -213,6 +217,11 @@ class RoomChange():
                 self.game.current_room_no = 10
                 self.game.current_room = self.game.room_list[self.game.current_room_no]
                 self.player.rect.y = p.SCREEN_Y - 30
+                self.player.room = self.game.current_room
+            elif self.player.rect.y >= p.SCREEN_Y:
+                self.game.current_room_no = 0
+                self.game.current_room = self.game.room_list[self.game.current_room_no]
+                self.rect.y = 30
                 self.player.room = self.game.current_room
                 
         elif self.game.current_room_no == 6:
