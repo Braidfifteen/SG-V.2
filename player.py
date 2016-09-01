@@ -51,36 +51,54 @@ class Player(pg.sprite.DirtySprite):
         
     def get_event(self, event):
         """Handles all events that pertains to playable character."""
+
         if event.type == pg.KEYDOWN:
             if event.key == pg.K_RETURN:
                 print(self.game.current_room_no)
             if event.key == pg.K_BACKSPACE:
                 print(self.game.room.room_no_list)
             if event.key == pg.K_a:
+                self.is_moving_left = True                
                 self.move_left()
-                self.is_moving_left = True
             if event.key == pg.K_d:
+                self.is_moving_right = True                
                 self.move_right()
-                self.is_moving_right = True
             if event.key == pg.K_w:
-                self.move_up()
                 self.is_moving_up = True
+                self.move_up()                
             if event.key == pg.K_s:
-                self.move_down()
                 self.is_moving_down = True
+                self.move_down()                
         if event.type == pg.KEYUP:
-            if event.key == pg.K_a and self.moveX < 0:
-                self.stopX()
-                self.is_moving_left = False
-            if event.key == pg.K_d and self.moveX > 0:
-                self.stopX()
-                self.is_moving_right = False
-            if event.key == pg.K_w and self.moveY < 0:
-                self.stopY()
-                self.is_moving_up = False
-            if event.key == pg.K_s and self.moveY > 0:
-                self.stopY()
-                self.is_moving_down = False
+            if event.key == pg.K_a:
+                if self.is_moving_right == True:
+                    self.is_moving_left = False                    
+                    self.move_right()
+                else:
+                    self.is_moving_left = False                    
+                    self.stopX()
+            if event.key == pg.K_d:
+                if self.is_moving_left == True:
+                    self.is_moving_right = False
+                    self.move_left()                    
+                else:
+                    self.is_moving_right = False                    
+                    self.stopX()
+            if event.key == pg.K_w:
+                if self.is_moving_down == True:
+                    self.is_moving_up = False                    
+                    self.move_down()
+                else:
+                    self.is_moving_up = False                    
+                    self.stopY()
+            if event.key == pg.K_s:
+                if self.is_moving_up == True:
+                    self.is_moving_down = False                    
+                    self.move_up()
+                else:
+                    self.is_moving_down = False                    
+                    self.stopY()
+
         if event.type == pg.MOUSEBUTTONDOWN and event.button == 1:
                 self.is_shooting = True
         elif event.type == pg.MOUSEBUTTONUP and event.button == 1:
