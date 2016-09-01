@@ -475,7 +475,7 @@ class RoomChange():
             if self.player.rect.x <= -15:
                 self.game.current_room_no = 18
                 self.game.current_room = self.game.room_list[self.game.current_room_no]
-                self.player.rect.x = p.SCREEN_X
+                self.player.rect.x = p.SCREEN_X - 30
                 self.player.room = self.game.current_room
             elif self.player.rect.y >= p.SCREEN_Y:
                 self.game.current_room_no = 14

@@ -54,10 +54,8 @@ class App():
         
         self.all_sprites.add(self.current_room.wall_list)
         dirty = self.all_sprites.draw(prepare.WINDOW)
-
         pg.display.update(dirty)
 
-    
     def show_start_screen(self):
         pass
         

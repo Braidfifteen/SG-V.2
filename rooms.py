@@ -68,7 +68,9 @@ class CreateRooms():
     def make_rooms(self):
         floor_grid = self.floor_grid()
         room_no_list = self.room_no_list
+        print(room_no_list)
         for i in range(len(floor_grid)):
+            print(i)
             if floor_grid[i] in room_no_list:
                 borders = self.make_borders(i, room_no_list)
                 floor_grid[i] = Room(self.game, self.player, borders, i)
